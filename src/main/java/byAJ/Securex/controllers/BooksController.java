@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/books")
-public class BookController {
-
+public class BooksController {
     @Autowired
     private BookRepository bookRepository;
 
@@ -34,15 +33,16 @@ public class BookController {
         return "redirect:/books/list";
     }
     @RequestMapping("/edit/{id}")
-    public String editBook(@PathVariable("id")int bookid, Model model){
+    public String editBook(@PathVariable("id")long bookid, Model model){
         Book book = new Book();
         book = bookRepository.findOne(bookid);
         model.addAttribute("book", book);
         return "bookform";
     }
     @RequestMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id")int bookid){
+    public String deleteBook(@PathVariable("id")long bookid){
         bookRepository.delete(bookid);
         return "listbooks";
     }
+
 }
